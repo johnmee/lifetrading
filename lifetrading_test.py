@@ -29,20 +29,20 @@ class LifetradingTestcase(unittest.TestCase):
     def test_get_csv_files(self):
         """Test the detection of CSV files in a directory."""
         # An empty directory has no csv files.
-        self.assertEqual(lifetrading.get_csv_files(self.test_dir), [])
+        self.assertEqual(lifetrading.get_csv_files(self.test_dir.name), [])
 
         # A non-csv file is not detected.
-        create_file(self.test_dir, 'foo.txt')
-        self.assertEqual(lifetrading.get_csv_files(self.test_dir), [])
+        create_file(self.test_dir.name, 'foo.txt')
+        self.assertEqual(lifetrading.get_csv_files(self.test_dir.name), [])
 
         # One csv file is detected.
-        create_file(self.test_dir, 'foo.csv')
-        csv_files = lifetrading.get_csv_files(self.test_dir)
+        create_file(self.test_dir.name, 'foo.csv')
+        csv_files = lifetrading.get_csv_files(self.test_dir.name)
         self.assertEqual(['foo.csv'], [file.name for file in csv_files])
 
         # Two csv files are detected.
-        create_file(self.test_dir, 'bar.csv')
-        csv_files = lifetrading.get_csv_files(self.test_dir)
+        create_file(self.test_dir.name, 'bar.csv')
+        csv_files = lifetrading.get_csv_files(self.test_dir.name)
         self.assertSetEqual({'foo.csv', 'bar.csv'},
                             set([file.name for file in csv_files]))
 
