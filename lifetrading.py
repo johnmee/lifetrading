@@ -2,7 +2,7 @@
 """Monitor a directory and import csv files to a database when they arrive.
 
 For usage:
-    ./daemon.py --help
+    ./lifetrading.py --help
 
 Detects new/updated files in the path and imports them into the database.
 """
