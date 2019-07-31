@@ -36,7 +36,28 @@ and replaced with this one.
 
 ## Discussion
 
-TODO
+Files are processed within 10 minutes of their arrival?
+
+Not guaranteed as it depends how long it takes to process a file on the available resource.
+I didn't multiprocess it, but had that in mind to do
+and expect it to be agreeable to that enhancement as the list of work to do is indeed a list.
+As implemented, this is a not a 'polling' algorithm exactly: instead it sleeps for the defined 
+period when there is nothing to do.
+
+I did play around with watchdog, and got it working easily enough, but discovered that the
+default unittests didn't play nice with it's multithreading; I couldn't control the thread of
+the test to set it to watch then programmatically create files to test it.  It was sucking up 
+time so I ditched it for the conventional option of 'polling'.
+
+I also ran out of time to fully implement the 'bonus' of file updates.  Some of that is 
+there, but to finish it off, I was leaning toward adding a column to the trade activity table
+which referenced the file the trade came from (or row id in filelog table); thus it would
+be easy to identify and delete the rows which were being replaced.
+
+I don't know if you'd consider it *cheating* or resourcefulness, but I discovered and
+took advantage of the [dataset](https://dataset.readthedocs.io/) library which implements
+a simple ORM over SQLAlchemy which provides for many database implementations. I've
+used sqlite3 for simplicity.
 
 ---
 

@@ -5,11 +5,21 @@ import tempfile
 import unittest
 from unittest import mock
 
-
+# Run the tests in memory.
 DB_SQLITE_MEMORY = 'sqlite:///:memory:'
 
 
 def create_file(directory, filename, content='Test\n'):
+    """Create a file.
+
+    Args:
+        directory (str): Path to the directory to create the file in.
+        filename (str): Name of the file to create.
+        content (str): Contents of the file created.
+
+    Returns:
+        str: full path to the file created.
+    """
     fullpath = os.path.join(directory, filename)
     fh = open(fullpath, 'w')
     fh.write(content)
@@ -18,12 +28,13 @@ def create_file(directory, filename, content='Test\n'):
 
 
 class LifetradingTestcase(unittest.TestCase):
-
+    """Unit tests for the lifetrading module."""
     def setUp(self):
         # Create a temporary directory for testing.
         self.test_dir = tempfile.TemporaryDirectory()
 
     def tearDown(self):
+        # Remove the temporary directory.
         self.test_dir.cleanup()
 
     def test_get_csv_files(self):
@@ -119,6 +130,7 @@ class LifetradingTestcase(unittest.TestCase):
 
 
 class IntegrationTestCase(unittest.TestCase):
+    """Test the main loop."""
     def setUp(self):
         # Create a temporary directory for testing.
         self.test_dir = tempfile.TemporaryDirectory()
